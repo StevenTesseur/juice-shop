@@ -4,14 +4,12 @@ jobs:
   DAST:
     runs-on: ubuntu-22.04
     steps:
-      - name: PULL TO CONTAINER
-        uses: actions/checkout@v4  
       - name: Secret Scanning
         uses: trufflesecurity/trufflehog@main
         with:
-          path: ./
-          head: master
           extra_args: --results=verified,unknown
+      - name: PULL TO CONTAINER
+        uses: actions/checkout@v4  
       - name: Install Heroku CLI 
         run: |
           curl https://cli-assets.heroku.com/install.sh | sh 
