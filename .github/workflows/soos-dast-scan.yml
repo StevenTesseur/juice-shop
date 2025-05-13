@@ -13,4 +13,5 @@ DAST:
       - name: DAST OWASP ZAP scan
       - uses: zaproxy/action-baseline@v0.14.0
         with:
-          target: https://<yoursubdomain-askteacher>.herokuapp.com/#/
+          target: https://secdevops4-27c05f66463b.herokuapp.com/
+
