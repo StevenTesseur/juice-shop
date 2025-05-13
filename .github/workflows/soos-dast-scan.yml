@@ -4,22 +4,11 @@ jobs:
   DAST:
     runs-on: ubuntu-22.04
     steps:
-      - name: Secret Scanning
-        uses: trufflesecurity/trufflehog@main
-        with:
-          extra_args: --results=verified,unknown
       - name: PULL TO CONTAINER
         uses: actions/checkout@v4  
-      - name: Install Heroku CLI 
-        run: |
-          curl https://cli-assets.heroku.com/install.sh | sh 
-      - name: DEPLOY ON HEROKU
-        uses: akhileshns/heroku-deploy@v3.14.15 
+      - name: scan-push
+        uses: trufflesecurity/trufflehog@main
         with:
-          heroku_api_key: HRKU-90822da0-9ae8-4371-b444-35d905682e91
-          heroku_app_name: "secdevops4"
-          heroku_email: "mboeynaems@outlook.com"
-      - name: DAST OWASP ZAP scan
-        uses: zaproxy/action-baseline@v0.14.0
-        with:
-          target: https://secdevops4-27c05f66463b.herokuapp.com/
+          base: ""
+          head: "master"
+          extra_args: --results=verified,unknown
