@@ -1,5 +1,8 @@
-DAST:
-  runs-on: ubuntu-22.04
+name: workflow dast
+on: push
+jobs:
+  DAST:
+    runs-on: ubuntu-22.04
     steps:
       - name: PULL TO CONTAINER
         uses: actions/checkout@v4  
