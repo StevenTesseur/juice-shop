@@ -9,6 +9,6 @@ jobs:
       - name: scan-push
         uses: trufflesecurity/trufflehog@main
         with:
-          base: ""
+          base: "origin/main~100"
           head: "master"
           extra_args: --results=verified,unknown
