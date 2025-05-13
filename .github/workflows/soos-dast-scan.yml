@@ -10,7 +10,7 @@ jobs:
         uses: trufflesecurity/trufflehog@main
         with:
           path: ./
-          head: HEAD
+          head: master
           extra_args: --results=verified,unknown
       - name: Install Heroku CLI 
         run: |
