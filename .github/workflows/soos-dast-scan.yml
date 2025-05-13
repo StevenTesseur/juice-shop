@@ -9,4 +9,5 @@ jobs:
       - name: scan-push
         uses: trufflesecurity/trufflehog@main
         with:
+          fetch-depth: 0 
           extra_args: --log-level=5 --results=verified,unknown
