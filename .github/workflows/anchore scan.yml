@@ -7,19 +7,18 @@
 name: Anchore Container Scan
 on: push
 jobs:
-  Anchore-Build-Scan:
+  SCA:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout the code
-      uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag localbuild/testimage:latest
-    - name: Run the Anchore scan action itself with GitHub Advanced Security code scanning integration enabled
-      uses: anchore/scan-action@main
-      with:
-        image: "localbuild/testimage:latest"
-        acs-report-enable: true
-    - name: Upload Anchore Scan Report
-      uses: github/codeql-action/upload-sarif@v1
-      with:
-        sarif_file: results.sarif
+      - name: "Checkout git repository"
+        uses: actions/checkout@v4
+      - name: "Use Node.js 18"
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm install
+      - name: Create SBOM step
+  # see for usage: https://www.npmjs.com/package/%40cyclonedx/cyclonedx-npm
+        run: npx @cyclonedx/cyclonedx-npm --output-format JSON --output-file sbom.json --verbose package.json
+      - name: curl
+        run: "curl -X POST -H 'X-Api-Key: odt_j5TEn8Qe_oPIpMDxzR8kXFsI6s8GJt8vQtixB4NIY' -F 'project=32f284c8-281b-4a51-8e0d-f7658afe41ed' -F 'bom=@sbom.json' https://dependency.portasecura.com/api/v1/bom"
